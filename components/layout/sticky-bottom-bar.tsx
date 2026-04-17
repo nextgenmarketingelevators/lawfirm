@@ -9,7 +9,7 @@ export function StickyBottomBar() {
           <Phone className="w-5 h-5 mb-1" />
           <span className="text-[10px] font-semibold uppercase tracking-wider">Call Now</span>
         </a>
-        <Link href="/contact" className="flex-1 flex flex-col items-center justify-center text-white bg-[#C5A059] hover:bg-[#B38F48] transition-colors">
+        <Link href="/contact" className="flex-1 flex flex-col items-center justify-center text-primary bg-[#C5A059] hover:bg-[#B38F48] transition-colors">
           <Calendar className="w-5 h-5 mb-1" />
           <span className="text-[10px] font-semibold uppercase tracking-wider">Consultation</span>
         </Link>

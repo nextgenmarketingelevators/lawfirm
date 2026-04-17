@@ -42,25 +42,30 @@ export default function ContactPage() {
     if (validate()) {
       setIsSubmitting(true);
       setSubmitError("");
-      
+
       try {
-        const response = await fetch("https://relayez.com/api/receive/c6afc702-354e-410b-8071-c4dbc028dc99/3aa9fd7f-6adb-414e-b23b-e8563cad59af", {
-          method: "POST",
+        const payload = {
+          full_name: formData.name,
+          email_address: formData.email,
+          phone_number: formData.phone,
+          service: formData.practiceArea || 'General Inquiry',
+          message: formData.message,
+          timestamp: new Date().toISOString(),
+          source: 'contact_form'
+        };
+
+        const response = await fetch('/api/contact', {
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
-            // Passing the secret key in headers
-            "Authorization": "Bearer kgcr1mhvtkusbm61zovs",
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify({
-            ...formData,
-            // Also including the secret in the payload to ensure compatibility
-            secret: "kgcr1mhvtkusbm61zovs",
-            source: "Wolper Law Firm Website Contact Form"
-          }),
+          body: JSON.stringify(payload)
         });
 
         if (!response.ok) {
-          throw new Error("Failed to submit to webhook");
+          const errorData = await response.json().catch(() => null);
+          console.error('Contact form error:', response.status, response.statusText, errorData);
+          throw new Error('Webhook request failed');
         }
 
         setIsSubmitted(true);
@@ -68,7 +73,7 @@ export default function ContactPage() {
         setErrors({});
       } catch (error) {
         console.error("Form submission error:", error);
-        setSubmitError("We encountered an issue sending your message. Please try again or contact us directly via phone.");
+        setSubmitError("We were unable to send your message. Please try again shortly.");
       } finally {
         setIsSubmitting(false);
       }
@@ -88,7 +93,7 @@ export default function ContactPage() {
     <div className="flex flex-col w-full">
       {/* 1. Hero */}
       <section className="bg-slate-900 text-white py-20 md:py-28 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/images/office-exterior-primary.png')] bg-cover bg-center opacity-40 mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-900 opacity-40"></div>
         <div className="container mx-auto px-4 max-w-4xl text-center relative z-10">
           <h1 className="font-serif text-4xl md:text-5xl font-bold mb-6">Contact Wolper Law Firm</h1>
           <p className="text-lg md:text-xl text-slate-300">
@@ -172,6 +177,7 @@ export default function ContactPage() {
                     <Input 
                       id="name" 
                       name="name" 
+                      autoComplete="name"
                       placeholder="John Doe" 
                       value={formData.name}
                       onChange={handleChange}
@@ -187,6 +193,7 @@ export default function ContactPage() {
                         id="phone" 
                         name="phone" 
                         type="tel" 
+                        autoComplete="tel"
                         placeholder="(555) 123-4567" 
                         value={formData.phone}
                         onChange={handleChange}
@@ -200,6 +207,7 @@ export default function ContactPage() {
                         id="email" 
                         name="email" 
                         type="email" 
+                        autoComplete="email"
                         placeholder="john@example.com" 
                         value={formData.email}
                         onChange={handleChange}

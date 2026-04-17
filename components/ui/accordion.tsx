@@ -38,7 +38,7 @@ function AccordionTrigger({
         )}
         {...props}
       >
-        {children}
+        <span className="min-w-0 flex-1 pr-4">{children}</span>
         <ChevronDownIcon data-slot="accordion-trigger-icon" className="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden" />
         <ChevronUpIcon data-slot="accordion-trigger-icon" className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline" />
       </AccordionPrimitive.Trigger>

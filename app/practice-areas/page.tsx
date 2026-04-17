@@ -8,7 +8,7 @@ export default function PracticeAreasPage() {
     <div className="flex flex-col w-full">
       {/* 1. Hero */}
       <section className="bg-slate-900 text-white py-20 md:py-28 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/images/agreement-paperwork.png')] bg-cover bg-center opacity-40 mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-900 opacity-40"></div>
         <div className="container mx-auto px-4 max-w-4xl text-center relative z-10">
           <h1 className="font-serif text-4xl md:text-5xl font-bold mb-6">Legal Services in Real Estate, Business & Property Law</h1>
           <p className="text-lg md:text-xl text-slate-300 mb-8">

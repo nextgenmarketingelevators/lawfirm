@@ -2,9 +2,81 @@ import Link from "next/link";
 import Image from "next/image";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Building2, Users, Receipt, Home, ArrowRight, CheckCircle2, Scale, ShieldAlert, FileText } from "lucide-react";
+import { Building2, Users, Receipt, Home, ArrowRight, CheckCircle2 } from "lucide-react";
+
+const bodyLinkClassName =
+  "font-medium text-primary underline decoration-accent/70 decoration-2 underline-offset-4 transition-colors hover:text-accent hover:decoration-accent";
+
+const practiceAreas = [
+  {
+    href: "/practice-areas/business-law",
+    icon: Building2,
+    title: "Business Law & Counseling",
+    description:
+      "Build your business on a strong legal foundation. Entity formation, shareholder agreements, and ongoing guidance for entrepreneurs.",
+    image: "/images/legal-contract-document.png",
+    alt: "Business law contract documents",
+  },
+  {
+    href: "/practice-areas/community-associations",
+    icon: Users,
+    title: "Community Associations",
+    description:
+      "Confident legal support for boards and associations. Condominiums, cooperatives, HOA governance, and dispute resolution.",
+    image: "/images/condo-community-exterior.png",
+    alt: "Condominium community exterior",
+  },
+  {
+    href: "/practice-areas/property-tax",
+    icon: Receipt,
+    title: "Property Tax Reduction",
+    description:
+      "Stop overpaying on property taxes. Strategic tax challenges with proven reduction results for real estate owners.",
+    image: "/images/tax-document-review.png",
+    alt: "Property tax document review",
+  },
+  {
+    href: "/practice-areas/real-estate",
+    icon: Home,
+    title: "Real Estate Law",
+    description:
+      "Protect your largest investments. Residential and commercial transactions, leasing, and financing negotiations.",
+    image: "/images/commercial-property-building.png",
+    alt: "Commercial property building",
+  },
+];
+
+const processSteps = [
+  {
+    step: "01",
+    title: "Initial Consultation",
+    desc: "We take the time to understand your situation and objectives in detail.",
+    image: "/images/lawyer-client-consultation.png",
+    alt: "Attorney meeting with a client",
+  },
+  {
+    step: "02",
+    title: "Legal Review & Strategy",
+    desc: "We anticipate and mitigate risks to protect your interests and bottom line.",
+    image: "/images/legal-contract-document.png",
+    alt: "Legal contract on a desk",
+  },
+  {
+    step: "03",
+    title: "Guidance Through Decisions",
+    desc: "We provide actionable advice and clear options for absolute clarity.",
+    image: "/images/attorney-client-strategy-session.png",
+    alt: "Attorney leading a strategy session",
+  },
+  {
+    step: "04",
+    title: "Resolution & Counsel",
+    desc: "We guide you through closing, execution, or ongoing legal matters.",
+    image: "/images/agreement-signature-pen.png",
+    alt: "Agreement ready for signature",
+  },
+];
 
 export default function HomePage() {
   return (
@@ -20,7 +92,7 @@ export default function HomePage() {
             {/* Kicker */}
             <div className="inline-flex items-center gap-3 mb-6">
               <span className="h-[2px] w-8 bg-accent"></span>
-              <span className="text-accent uppercase tracking-[3px] text-[11px] sm:text-xs font-bold font-sans">Wolper Law Firm, PLLC</span>
+              <span className="text-primary uppercase tracking-[3px] text-[11px] sm:text-xs font-bold font-sans">Wolper Law Firm, PLLC</span>
             </div>
             
             <h1 className="font-serif text-[44px] sm:text-[52px] md:text-[60px] lg:text-[68px] leading-[1.05] text-primary mb-6 font-bold tracking-tight">
@@ -39,7 +111,7 @@ export default function HomePage() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">
-              <Button size="lg" render={<Link href="/contact" />} className="bg-accent hover:bg-[#B38F48] text-white py-4 px-8 h-auto no-underline text-[13px] md:text-[14px] font-bold rounded-[2px] uppercase tracking-[1.5px] shadow-[0_8px_20px_-6px_rgba(197,160,89,0.4)] hover:shadow-[0_12px_24px_-8px_rgba(197,160,89,0.5)] transition-all border-none">
+              <Button size="lg" render={<Link href="/contact" />} className="bg-accent hover:bg-[#B38F48] text-primary py-4 px-8 h-auto no-underline text-[13px] md:text-[14px] font-bold rounded-[2px] uppercase tracking-[1.5px] shadow-[0_8px_20px_-6px_rgba(197,160,89,0.4)] hover:shadow-[0_12px_24px_-8px_rgba(197,160,89,0.5)] transition-all border-none">
                 Request a Consultation
               </Button>
               <Button size="lg" variant="outline" render={<a href="tel:+19147415050" />} className="border-2 border-primary text-primary hover:bg-primary hover:text-white py-4 px-8 h-auto no-underline text-[13px] md:text-[14px] font-bold rounded-[2px] uppercase tracking-[1.5px] transition-all bg-transparent">
@@ -62,19 +134,18 @@ export default function HomePage() {
                 <span>Results-Driven Approach</span>
               </div>
             </div>
+
           </div>
           
           <div className="hidden lg:block relative pb-8 pr-8 mt-4 lg:mt-0">
             {/* Elevated, framed image container */}
             <div className="relative z-10 w-full aspect-[4/5] shadow-[0_25px_60px_-15px_rgba(27,43,58,0.3)] rounded-[2px] overflow-hidden bg-muted">
               <Image 
-                src="/images/Main%20Headshot%20(Formal).png" 
-                alt="Wolper Law Firm Office in Valhalla, NY" 
+                src="/images/attorney-portrait-hero.png"
+                alt="Robert W. Wolper, Esq." 
                 fill
                 className="object-cover transition-transform duration-1000 hover:scale-105"
-                referrerPolicy="no-referrer"
-                priority
-                unoptimized
+                sizes="(min-width: 1024px) 40vw, 100vw"
               />
               {/* Inner subtle border to frame image */}
               <div className="absolute inset-0 border border-white/20 pointer-events-none rounded-[2px]"></div>
@@ -87,17 +158,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3. Why Clients Hire Us */}
+      {/* 2. Why Clients Hire Us */}
       <WhyChooseUs />
 
-      {/* 4. Practice Areas Overview */}
+      {/* 3. Practice Areas Overview */}
       <section className="py-24 bg-white relative">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-3 mb-6">
                 <span className="h-[2px] w-8 bg-accent"></span>
-                <span className="text-accent uppercase tracking-[2px] text-xs font-bold font-sans">Our Expertise</span>
+                <span className="text-primary uppercase tracking-[2px] text-xs font-bold font-sans">Our Expertise</span>
               </div>
               <h2 className="font-serif text-4xl md:text-5xl font-bold text-primary mb-4">Focused Legal Excellence</h2>
               <p className="text-slate-600 text-lg">Providing strategic counsel and dedicated representation in the areas that matter most to your business and real estate investments.</p>
@@ -108,55 +179,40 @@ export default function HomePage() {
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Link href="/practice-areas/business-law" className="group relative flex flex-col bg-white border border-slate-200 p-8 hover:border-accent/40 shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(197,160,89,0.15)] transition-all duration-300 rounded-[2px] overflow-hidden">
-               {/* Hover Accent Line */}
-               <div className="absolute top-0 left-0 w-full h-[3px] bg-accent scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 ease-out"></div>
-               
-              <div className="w-14 h-14 bg-slate-50 border border-slate-100 rounded-full flex items-center justify-center mb-8 group-hover:bg-accent/10 group-hover:border-accent/20 transition-colors duration-300">
-                <Building2 className="w-6 h-6 text-primary group-hover:text-accent transition-colors" />
-              </div>
-              <h4 className="font-serif text-2xl font-bold text-primary mb-4 group-hover:text-accent transition-colors duration-300">Business Law <br/>& Counseling</h4>
-              <p className="text-slate-600 leading-relaxed mb-8 flex-1 text-[15px]">Build your business on a strong legal foundation. Entity formation, shareholder agreements, and ongoing guidance for entrepreneurs.</p>
-              <div className="inline-flex items-center text-xs uppercase tracking-[1.5px] text-primary font-bold group-hover:text-accent transition-colors mt-auto">
-                Explore Area <ArrowRight className="w-4 h-4 ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-out" />
-              </div>
-            </Link>
+            {practiceAreas.map((area) => {
+              const Icon = area.icon;
 
-            <Link href="/practice-areas/community-associations" className="group relative flex flex-col bg-white border border-slate-200 p-8 hover:border-accent/40 shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(197,160,89,0.15)] transition-all duration-300 rounded-[2px] overflow-hidden">
-               <div className="absolute top-0 left-0 w-full h-[3px] bg-accent scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 ease-out"></div>
-              <div className="w-14 h-14 bg-slate-50 border border-slate-100 rounded-full flex items-center justify-center mb-8 group-hover:bg-accent/10 group-hover:border-accent/20 transition-colors duration-300">
-                <Users className="w-6 h-6 text-primary group-hover:text-accent transition-colors" />
-              </div>
-              <h4 className="font-serif text-2xl font-bold text-primary mb-4 group-hover:text-accent transition-colors duration-300">Community <br/>Associations</h4>
-              <p className="text-slate-600 leading-relaxed mb-8 flex-1 text-[15px]">Confident legal support for boards and associations. Condominiums, cooperatives, HOA governance, and dispute resolution.</p>
-              <div className="inline-flex items-center text-xs uppercase tracking-[1.5px] text-primary font-bold group-hover:text-accent transition-colors mt-auto">
-                Explore Area <ArrowRight className="w-4 h-4 ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-out" />
-              </div>
-            </Link>
+              return (
+                <Link
+                  key={area.href}
+                  href={area.href}
+                  className="group relative flex flex-col bg-white border border-slate-200 p-5 hover:border-accent/40 shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(197,160,89,0.15)] transition-all duration-300 rounded-[2px] overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 w-full h-[3px] bg-accent scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 ease-out"></div>
 
-            <Link href="/practice-areas/property-tax" className="group relative flex flex-col bg-white border border-slate-200 p-8 hover:border-accent/40 shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(197,160,89,0.15)] transition-all duration-300 rounded-[2px] overflow-hidden">
-               <div className="absolute top-0 left-0 w-full h-[3px] bg-accent scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 ease-out"></div>
-              <div className="w-14 h-14 bg-slate-50 border border-slate-100 rounded-full flex items-center justify-center mb-8 group-hover:bg-accent/10 group-hover:border-accent/20 transition-colors duration-300">
-                <Receipt className="w-6 h-6 text-primary group-hover:text-accent transition-colors" />
-              </div>
-              <h4 className="font-serif text-2xl font-bold text-primary mb-4 group-hover:text-accent transition-colors duration-300">Property Tax <br/>Reduction</h4>
-              <p className="text-slate-600 leading-relaxed mb-8 flex-1 text-[15px]">Stop overpaying on property taxes. Strategic tax challenges with proven reduction results for real estate owners.</p>
-              <div className="inline-flex items-center text-xs uppercase tracking-[1.5px] text-primary font-bold group-hover:text-accent transition-colors mt-auto">
-                Explore Area <ArrowRight className="w-4 h-4 ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-out" />
-              </div>
-            </Link>
+                  <div className="relative aspect-[4/3] mb-6 overflow-hidden rounded-[2px] bg-slate-100">
+                    <Image
+                      src={area.image}
+                      alt={area.alt}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(min-width: 1024px) 22vw, (min-width: 640px) 50vw, 100vw"
+                    />
+                  </div>
 
-            <Link href="/practice-areas/real-estate" className="group relative flex flex-col bg-white border border-slate-200 p-8 hover:border-accent/40 shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(197,160,89,0.15)] transition-all duration-300 rounded-[2px] overflow-hidden">
-               <div className="absolute top-0 left-0 w-full h-[3px] bg-accent scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 ease-out"></div>
-              <div className="w-14 h-14 bg-slate-50 border border-slate-100 rounded-full flex items-center justify-center mb-8 group-hover:bg-accent/10 group-hover:border-accent/20 transition-colors duration-300">
-                <Home className="w-6 h-6 text-primary group-hover:text-accent transition-colors" />
-              </div>
-              <h4 className="font-serif text-2xl font-bold text-primary mb-4 group-hover:text-accent transition-colors duration-300">Real Estate <br/>Law</h4>
-              <p className="text-slate-600 leading-relaxed mb-8 flex-1 text-[15px]">Protect your largest investments. Residential and commercial transactions, leasing, and financing negotiations.</p>
-              <div className="inline-flex items-center text-xs uppercase tracking-[1.5px] text-primary font-bold group-hover:text-accent transition-colors mt-auto">
-                Explore Area <ArrowRight className="w-4 h-4 ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-out" />
-              </div>
-            </Link>
+                  <div className="w-12 h-12 bg-slate-50 border border-slate-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-accent/10 group-hover:border-accent/20 transition-colors duration-300">
+                    <Icon className="w-5 h-5 text-primary group-hover:text-accent transition-colors" />
+                  </div>
+                  <h3 className="font-serif text-[28px] leading-tight font-bold text-primary mb-4 group-hover:text-accent transition-colors duration-300">
+                    {area.title}
+                  </h3>
+                  <p className="text-slate-600 leading-relaxed mb-8 flex-1 text-[15px]">{area.description}</p>
+                  <div className="inline-flex items-center text-xs uppercase tracking-[1.5px] text-primary font-bold group-hover:text-accent transition-colors mt-auto">
+                    Explore Area <ArrowRight className="w-4 h-4 ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-out" />
+                  </div>
+                </Link>
+              );
+            })}
           </div>
           
           {/* Mobile view all btn */}
@@ -168,35 +224,43 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. The Cost of Waiting Too Long */}
+      {/* 4. The Cost of Waiting Too Long */}
       <section className="py-24 md:py-32 relative bg-primary overflow-hidden">
         {/* Abstract Background Design */}
         <div className="absolute inset-0 bg-[#0f1922]"></div>
-        <div className="absolute right-0 top-0 w-2/3 h-full mix-blend-overlay opacity-20 pointer-events-none" style={{ background: 'url("/images/consultation-image.png") center/cover no-repeat' }}></div>
+        <div className="absolute right-0 top-0 h-full w-2/3 overflow-hidden opacity-20 mix-blend-overlay pointer-events-none">
+          <Image
+            src="/images/lawyer-client-consultation.png"
+            alt=""
+            fill
+            className="object-cover"
+            sizes="(min-width: 1024px) 66vw, 100vw"
+          />
+        </div>
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-transparent to-[#0f1922] pointer-events-none"></div>
         <div className="absolute top-1/2 left-0 -translate-y-1/2 w-96 h-96 bg-accent/20 blur-[100px] rounded-full pointer-events-none"></div>
 
         <div className="container mx-auto px-4 relative z-10 flex flex-col items-center">
-          <div className="w-full max-w-4xl bg-white/5 backdrop-blur-sm border border-white/10 p-10 md:p-16 rounded-[2px] text-center shadow-2xl relative overflow-hidden">
+          <div className="w-full max-w-4xl bg-white/5 backdrop-blur-sm border border-white/10 p-6 sm:p-10 md:p-16 rounded-[2px] text-center shadow-2xl relative overflow-hidden">
             {/* Subtle corner flares */}
             <div className="absolute -top-10 -left-10 w-32 h-32 bg-accent/20 blur-3xl rounded-full"></div>
             <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-accent/20 blur-3xl rounded-full"></div>
 
-            <h2 className="font-serif text-3xl md:text-[44px] font-bold text-white mb-6 leading-tight">The Wrong Legal Move Can Be Costly</h2>
-            <div className="w-16 h-[2px] bg-accent mx-auto mb-8"></div>
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-[44px] font-bold text-white mb-4 sm:mb-6 leading-tight">The Wrong Legal Move Can Be Costly</h2>
+            <div className="w-16 h-[2px] bg-accent mx-auto mb-6 sm:mb-8"></div>
             
-            <p className="text-lg md:text-xl text-white/80 mb-12 leading-relaxed max-w-2xl mx-auto font-light">
-              Many clients contact an attorney only after a problem has already developed. Bringing legal counsel in early can help you prevent delays, avoid hidden liabilities, and negotiate from a stronger position in any <Link href="/practice-areas" className="text-accent underline hover:text-white transition-colors">legal matter</Link>.
+            <p className="text-base sm:text-lg md:text-xl text-white/80 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto font-light">
+              Many clients contact an attorney only after a problem has already developed. Bringing legal counsel in early can help you prevent delays, avoid hidden liabilities, and negotiate from a stronger position in any <Link href="/practice-areas" className={bodyLinkClassName}>legal matter</Link>.
             </p>
             
-            <Button size="lg" render={<Link href="/contact" />} className="bg-[#C5A059] hover:bg-[#B38F48] text-white py-4 px-10 h-auto no-underline text-sm md:text-base font-bold rounded-[2px] uppercase tracking-[1.5px] shadow-[0_10px_30px_-10px_rgba(197,160,89,0.5)] hover:shadow-[0_15px_40px_-10px_rgba(197,160,89,0.6)] hover:-translate-y-1 transition-all duration-300">
+            <Button size="lg" render={<Link href="/contact" />} className="bg-[#C5A059] hover:bg-[#B38F48] text-primary w-full sm:w-auto py-3 sm:py-4 px-6 sm:px-10 h-auto no-underline text-xs sm:text-sm md:text-base font-bold rounded-[2px] uppercase tracking-[1px] sm:tracking-[1.5px] shadow-[0_10px_30px_-10px_rgba(197,160,89,0.5)] hover:shadow-[0_15px_40px_-10px_rgba(197,160,89,0.6)] hover:-translate-y-1 transition-all duration-300 whitespace-normal sm:whitespace-nowrap">
               Talk to Us Before You Sign Anything
             </Button>
           </div>
         </div>
       </section>
 
-      {/* 6. Featured Quote */}
+      {/* 5. Featured Quote */}
       <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
@@ -212,7 +276,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 7. Process Section */}
+      {/* 6. Process Section */}
       <section className="py-16 md:py-24 bg-muted border-y border-border">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -224,13 +288,17 @@ export default function HomePage() {
             {/* Connecting line for desktop */}
             <div className="hidden lg:block absolute top-6 left-[12.5%] right-[12.5%] h-[1px] bg-border"></div>
             
-            {[
-              { step: "01", title: "Initial Consultation", desc: "We take the time to understand your situation and objectives in detail." },
-              { step: "02", title: "Legal Review & Strategy", desc: "We anticipate and mitigate risks to protect your interests and bottom line." },
-              { step: "03", title: "Guidance Through Decisions", desc: "We provide actionable advice and clear options for absolute clarity." },
-              { step: "04", title: "Resolution & Counsel", desc: "We guide you through closing, execution, or ongoing legal matters." }
-            ].map((item, i) => (
+            {processSteps.map((item, i) => (
               <div key={i} className="relative z-10 flex flex-col items-center text-center">
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[2px] mb-6 bg-slate-100">
+                  <Image
+                    src={item.image}
+                    alt={item.alt}
+                    fill
+                    className="object-cover"
+                    sizes="(min-width: 1024px) 22vw, (min-width: 640px) 50vw, 100vw"
+                  />
+                </div>
                 <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center font-bold text-lg mb-6 ring-8 ring-muted">
                   {item.step}
                 </div>
@@ -242,43 +310,43 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 8. FAQ Preview */}
+      {/* 7. FAQ Preview */}
       <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4 max-w-3xl">
           <div className="text-center mb-12">
             <h2 className="font-serif text-3xl md:text-4xl font-bold text-primary mb-4">Common Questions</h2>
-            <p className="text-muted-foreground">Find answers to frequently asked questions about real estate and business law in New York.</p>
+            <p className="text-muted-foreground">Find answers to common questions about real estate and business law in New York.</p>
           </div>
           
           <Accordion className="w-full mb-10">
             <AccordionItem value="item-1">
-              <AccordionTrigger className="font-serif text-lg hover:no-underline text-primary">When should I contact a <Link href="/practice-areas/real-estate" className="hover:underline">real estate attorney</Link> in New York?</AccordionTrigger>
+              <AccordionTrigger className="font-serif text-lg hover:no-underline text-primary">When should I contact a real estate attorney in New York?</AccordionTrigger>
               <AccordionContent className="text-muted-foreground leading-relaxed text-base">
-                It is always best to involve an attorney before signing any agreements or making binding decisions. Early counsel helps identify risks, negotiate better terms, and prevent costly disputes down the line. Whether you are buying a home in Westchester or leasing commercial space in Manhattan, early intervention is key.
+                It is best to involve an attorney before signing agreements or making binding decisions. Early legal guidance helps identify risks, negotiate stronger terms, and prevent costly disputes. Whether you are buying a home in Westchester or leasing commercial space in Manhattan, getting counsel involved early can make a meaningful difference.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
               <AccordionTrigger className="font-serif text-lg hover:no-underline text-primary">Do you handle both residential and commercial real estate matters?</AccordionTrigger>
               <AccordionContent className="text-muted-foreground leading-relaxed text-base">
-                Yes. We represent clients in both residential and commercial <Link href="/practice-areas/real-estate" className="text-primary hover:underline">real estate transactions</Link> across New York and Westchester County, including purchases, sales, leasing, and financing.
+                Yes. We represent clients in both residential and commercial <Link href="/practice-areas/real-estate" className={bodyLinkClassName}>real estate transactions</Link> across New York and Westchester County, including purchases, sales, leasing, and financing.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-3">
-              <AccordionTrigger className="font-serif text-lg hover:no-underline text-primary">Can you help with <Link href="/practice-areas/business-law" className="hover:underline">business formation</Link> in Westchester County?</AccordionTrigger>
+              <AccordionTrigger className="font-serif text-lg hover:no-underline text-primary">Can you help with business formation in Westchester County?</AccordionTrigger>
               <AccordionContent className="text-muted-foreground leading-relaxed text-base">
-                Absolutely. We guide entrepreneurs and business owners through choosing the right entity structure (LLC, Corporation, etc.), drafting operating agreements, and establishing a solid legal foundation for growth in Valhalla and the surrounding areas.
+                Absolutely. We help entrepreneurs and business owners choose the right entity structure, draft operating agreements, and build a strong legal foundation for growth in Valhalla and the surrounding area.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-4">
               <AccordionTrigger className="font-serif text-lg hover:no-underline text-primary">What does property tax assessment reduction involve?</AccordionTrigger>
               <AccordionContent className="text-muted-foreground leading-relaxed text-base">
-                We analyze your property&apos;s assessment against market value. If overassessed, we file strategic tax challenges to reduce your burden. We handle this on a contingency basis—meaning our fees are based on the results we achieve for you.
+                We compare your property&apos;s assessed value with its market value. If the assessment appears too high, we prepare and file a strategic challenge to reduce your tax burden. We handle these matters on a contingency basis, meaning our fees are tied to the results we achieve for you.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-5">
-              <AccordionTrigger className="font-serif text-lg hover:no-underline text-primary">Why do I need a <Link href="/practice-areas/business-law" className="hover:underline">business lawyer</Link> for my startup?</AccordionTrigger>
+              <AccordionTrigger className="font-serif text-lg hover:no-underline text-primary">Why do I need a business lawyer for my startup?</AccordionTrigger>
               <AccordionContent className="text-muted-foreground leading-relaxed text-base">
-                Working with a business lawyer ensures your entity is structured correctly, legally protected, and compliant with New York state laws. This reduces future risk and positions your company for long-term success.
+                Working with a business lawyer helps ensure your company is structured properly, protected legally, and compliant with New York law. That reduces risk early and puts your business in a stronger position for long-term success.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -291,15 +359,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 9. Final CTA Section */}
+      {/* 8. Final CTA Section */}
       <section className="py-16 md:py-24 bg-muted border-t border-border text-center">
         <div className="container mx-auto px-4 max-w-2xl">
           <h2 className="font-serif text-[3xl] md:text-4xl font-bold text-primary mb-6">Contact a <Link href="/practice-areas/real-estate" className="hover:text-accent transition-colors">Real Estate</Link> & <Link href="/practice-areas/business-law" className="hover:text-accent transition-colors">Business</Link> Attorney in New York</h2>
           <p className="text-lg text-muted-foreground mb-10">
-            Make informed decisions with confidence. If you are looking for an experienced <Link href="/practice-areas/real-estate" className="text-primary hover:underline">real estate attorney</Link> in New York or <Link href="/practice-areas/business-law" className="text-primary hover:underline">business lawyer</Link> in Westchester County, Valhalla, NY, or the New York Metropolitan Area, we invite you to contact our office.
+            Make informed decisions with confidence. If you are looking for an experienced <Link href="/practice-areas/real-estate" className={bodyLinkClassName}>real estate attorney</Link> in New York or <Link href="/practice-areas/business-law" className={bodyLinkClassName}>business lawyer</Link> in Westchester County, Valhalla, NY, or the New York Metropolitan Area, we invite you to contact our office.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button size="lg" render={<Link href="/contact" />} className="bg-[#C5A059] hover:bg-[#B38F48] text-white py-3 px-8 h-auto no-underline text-[13px] font-semibold rounded-[2px] uppercase tracking-[1px]">
+            <Button size="lg" render={<Link href="/contact" />} className="bg-[#C5A059] hover:bg-[#B38F48] text-primary py-3 px-8 h-auto no-underline text-[13px] font-semibold rounded-[2px] uppercase tracking-[1px]">
               Request a Consultation
             </Button>
             <Button variant="outline" size="lg" render={<a href="tel:+19147415050" />} className="border-2 border-[#1B2B3A] text-[#1B2B3A] hover:bg-[#1B2B3A] hover:text-white py-3 px-8 h-auto no-underline text-[13px] font-semibold rounded-[2px] uppercase tracking-[1px]">

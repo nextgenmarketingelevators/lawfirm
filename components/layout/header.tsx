@@ -24,7 +24,7 @@ export function Header() {
       <div className="h-20 md:h-24 px-4 md:px-10 flex items-center justify-between border-b border-slate-100 shadow-[0_4px_24px_-12px_rgba(27,43,58,0.08)] bg-white/95 backdrop-blur-md">
         <Link href="/" className="font-serif text-[22px] md:text-[26px] font-bold text-primary no-underline tracking-tight flex items-baseline gap-2 group">
           WOLPER LAW FIRM 
-          <span className="font-sans text-[11px] md:text-[12px] font-semibold tracking-[2px] opacity-60 group-hover:text-accent transition-colors border-l border-slate-300 pl-2">PLLC</span>
+          <span className="font-sans text-[11px] md:text-[12px] font-semibold tracking-[2px] text-slate-700 group-hover:text-accent transition-colors border-l border-slate-300 pl-2">PLLC</span>
         </Link>
 
         {/* Desktop Nav */}
@@ -33,7 +33,7 @@ export function Header() {
           <Link href="/practice-areas" className="text-primary text-[14px] font-semibold tracking-[0.5px] no-underline hover:text-accent transition-colors relative py-2 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-accent after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left after:duration-300">Practice Areas</Link>
           <Link href="/about" className="text-primary text-[14px] font-semibold tracking-[0.5px] no-underline hover:text-accent transition-colors relative py-2 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-accent after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left after:duration-300">About</Link>
           <Link href="/contact" className="text-primary text-[14px] font-semibold tracking-[0.5px] no-underline hover:text-accent transition-colors relative py-2 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-accent after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left after:duration-300">Contact</Link>
-          <Button render={<Link href="/contact" />} className="bg-[#C5A059] hover:bg-[#B38F48] text-white py-3.5 px-8 h-auto no-underline text-[13px] font-bold rounded-[2px] uppercase tracking-[1.5px] ml-4 transition-all duration-300 shadow-[0_8px_16px_-6px_rgba(197,160,89,0.3)] hover:shadow-[0_12px_20px_-8px_rgba(197,160,89,0.5)] hover:-translate-y-0.5 border-none">
+          <Button render={<Link href="/contact" />} className="bg-[#C5A059] hover:bg-[#B38F48] text-primary py-3.5 px-8 h-auto no-underline text-[13px] font-bold rounded-[2px] uppercase tracking-[1.5px] ml-4 transition-all duration-300 shadow-[0_8px_16px_-6px_rgba(197,160,89,0.3)] hover:shadow-[0_12px_20px_-8px_rgba(197,160,89,0.5)] hover:-translate-y-0.5 border-none">
             Schedule a Consultation
           </Button>
         </nav>
@@ -73,7 +73,7 @@ export function Header() {
                       <span className="font-medium">✉️ info@wolperlaw.com</span>
                     </a>
                   </div>
-                  <Button render={<Link href="/contact" />} className="w-full bg-[#C5A059] hover:bg-[#B38F48] text-white py-3 h-auto no-underline text-[13px] font-semibold rounded-[2px] uppercase tracking-[1px]">
+                  <Button render={<Link href="/contact" />} className="w-full bg-[#C5A059] hover:bg-[#B38F48] text-primary py-3 h-auto no-underline text-[13px] font-semibold rounded-[2px] uppercase tracking-[1px]">
                     Schedule a Consultation
                   </Button>
                   <Button variant="outline" render={<a href="tel:+19147415050" />} className="w-full border-2 border-[#1B2B3A] text-[#1B2B3A] hover:bg-[#1B2B3A] hover:text-white py-3 h-auto no-underline text-[13px] font-semibold rounded-[2px] uppercase tracking-[1px]">

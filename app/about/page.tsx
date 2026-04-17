@@ -1,14 +1,26 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, ArrowRight } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
+
+const bodyLinkClassName =
+  "font-medium text-primary underline decoration-accent/70 decoration-2 underline-offset-4 transition-colors hover:text-accent hover:decoration-accent";
 
 export default function AboutPage() {
   return (
     <div className="flex flex-col w-full">
       {/* 1. Hero */}
-      <section className="bg-slate-900 text-white py-20 md:py-28">
-        <div className="container mx-auto px-4 max-w-4xl text-center">
+      <section className="relative overflow-hidden bg-slate-900 text-white py-20 md:py-28">
+        <Image
+          src="/images/law-firm-building-glass-front.png"
+          alt="Law firm building exterior"
+          fill
+          className="object-cover opacity-25"
+          priority
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-primary/80"></div>
+        <div className="container mx-auto px-4 max-w-4xl text-center relative z-10">
           <h1 className="font-serif text-4xl md:text-5xl font-bold mb-6">About Wolper Law Firm</h1>
           <p className="text-lg md:text-xl text-slate-300 mb-8">
             Experienced Legal Counsel You Can Trust. Serving clients across New York and Westchester County.
@@ -23,13 +35,11 @@ export default function AboutPage() {
             <div className="lg:col-span-5 relative mb-12 lg:mb-0">
               <div className="aspect-[3/4] bg-slate-100 relative overflow-hidden">
                 <Image 
-                  src="/images/AttorneyPortrait.png" 
+                  src="/images/attorney-headshot-formal.png" 
                   alt="Robert W. Wolper, Esq." 
                   fill
                   className="object-cover" 
-                  referrerPolicy="no-referrer" 
-                  loading="lazy"
-                  unoptimized
+                  sizes="(min-width: 1024px) 42vw, 100vw"
                 />
               </div>
               <div className="absolute -bottom-6 -right-6 bg-slate-900 text-white p-6 hidden md:block">
@@ -44,13 +54,13 @@ export default function AboutPage() {
               
               <div className="space-y-6 text-slate-600 leading-relaxed text-lg">
                 <p>
-                  Wolper Law Firm is a New York-based practice focused on <Link href="/practice-areas/real-estate" className="text-primary hover:underline">real estate law</Link>, <Link href="/practice-areas/business-law" className="text-primary hover:underline">business law</Link>, and property-related legal matters. Led by Robert W. Wolper, an attorney with decades of experience, the firm provides clients with thoughtful, strategic legal guidance tailored to their specific needs.
+                  Wolper Law Firm is a New York-based practice focused on <Link href="/practice-areas/real-estate" className={bodyLinkClassName}>real estate law</Link>, <Link href="/practice-areas/business-law" className={bodyLinkClassName}>business law</Link>, and property-related legal matters. Led by Robert W. Wolper, an attorney with decades of experience, the firm provides clients with thoughtful, strategic legal guidance tailored to their specific needs.
                 </p>
                 <p>
-                  As a <Link href="/practice-areas/business-law" className="text-primary hover:underline">business attorney</Link> in Westchester NY and <Link href="/practice-areas/real-estate" className="text-primary hover:underline">real estate attorney</Link> in New York, Robert has built a reputation for providing practical, results-driven advice. He understands that clients don&apos;t just want a legal analysis—they want a solution. His approach is rooted in identifying issues early, providing clear strategies, and staying accessible and responsive to client needs.
+                  As a <Link href="/practice-areas/business-law" className={bodyLinkClassName}>business attorney</Link> in Westchester NY and <Link href="/practice-areas/real-estate" className={bodyLinkClassName}>real estate attorney</Link> in New York, Robert has built a reputation for providing practical, results-driven advice. He understands that clients don&apos;t just want a legal analysis, they want a solution. His approach is rooted in identifying issues early, providing clear strategies, and staying accessible and responsive to client needs.
                 </p>
                 <p>
-                  Whether guiding a <Link href="/practice-areas/community-associations" className="text-primary hover:underline">cooperative board</Link> through complex governance issues, negotiating a <Link href="/practice-areas/real-estate" className="text-primary hover:underline">commercial lease</Link>, or helping an <Link href="/practice-areas/business-law" className="text-primary hover:underline">entrepreneur</Link> structure a new venture, Robert brings a deep understanding of local and state law, coupled with a strong professional network. Our goal is not just to complete transactions—but to serve as a trusted legal advisor over time.
+                  Whether guiding a <Link href="/practice-areas/community-associations" className={bodyLinkClassName}>cooperative board</Link> through complex governance issues, negotiating a <Link href="/practice-areas/real-estate" className={bodyLinkClassName}>commercial lease</Link>, or helping an <Link href="/practice-areas/business-law" className={bodyLinkClassName}>entrepreneur</Link> structure a new venture, Robert brings a deep understanding of local and state law, coupled with a strong professional network. Our goal is not just to complete transactions, but to serve as a trusted legal advisor over time.
                 </p>
               </div>
 
@@ -94,7 +104,7 @@ export default function AboutPage() {
                 <span className="font-serif text-xl font-bold text-slate-900">1</span>
               </div>
               <h3 className="font-serif text-xl font-bold text-slate-900 mb-3">Understand Objectives</h3>
-              <p className="text-slate-600">We take the time to deeply understand your goals, whether in <Link href="/practice-areas/real-estate" className="text-primary hover:underline">real estate</Link> or <Link href="/practice-areas/business-law" className="text-primary hover:underline">business</Link>.</p>
+              <p className="text-slate-600">We take the time to deeply understand your goals, whether in <Link href="/practice-areas/real-estate" className={bodyLinkClassName}>real estate</Link> or <Link href="/practice-areas/business-law" className={bodyLinkClassName}>business</Link>.</p>
             </div>
             <div className="bg-white p-8 border border-slate-200 text-center">
               <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -135,11 +145,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 6. Final CTA */}
+      {/* 5. Final CTA */}
       <section className="py-16 md:py-20 bg-slate-900 text-white text-center">
         <div className="container mx-auto px-4">
           <h2 className="font-serif text-3xl md:text-4xl font-bold mb-8">Need experienced guidance for a legal or business decision?</h2>
-          <Button size="lg" render={<Link href="/contact" />} className="bg-[#C5A059] hover:bg-[#B38F48] text-white py-3 px-8 h-auto no-underline text-[13px] font-semibold rounded-[2px] uppercase tracking-[1px]">
+          <Button size="lg" render={<Link href="/contact" />} className="bg-[#C5A059] hover:bg-[#B38F48] text-primary py-3 px-8 h-auto no-underline text-[13px] font-semibold rounded-[2px] uppercase tracking-[1px]">
             Contact Us Today
           </Button>
         </div>
