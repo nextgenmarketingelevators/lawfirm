@@ -23,11 +23,13 @@ export default function AboutPage() {
             <div className="lg:col-span-5 relative mb-12 lg:mb-0">
               <div className="aspect-[3/4] bg-slate-100 relative overflow-hidden">
                 <Image 
-                  src="https://picsum.photos/seed/attorney-portrait/800/1066" 
+                  src="/images/AttorneyPortrait.png" 
                   alt="Robert W. Wolper, Esq." 
                   fill
                   className="object-cover" 
                   referrerPolicy="no-referrer" 
+                  loading="lazy"
+                  unoptimized
                 />
               </div>
               <div className="absolute -bottom-6 -right-6 bg-slate-900 text-white p-6 hidden md:block">

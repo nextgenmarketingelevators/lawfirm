@@ -129,3 +129,29 @@
     @apply font-sans;
     }
 }
+
+@layer components {
+  /* Subtle focus-in animation for interactive elements */
+  button, 
+  a[href], 
+  input, 
+  textarea, 
+  select {
+    @apply transition-all duration-300;
+  }
+  
+  /* Apply scale transform carefully on explicitly styled interaction points */
+  button:not(.no-scale):hover,
+  a.btn:not(.no-scale):hover,
+  [role="button"]:not(.no-scale):hover {
+    transform: scale(1.02);
+  }
+
+  button:focus-visible, 
+  a[href]:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    @apply outline-none ring-2 ring-accent/60 ring-offset-2 ring-offset-background;
+  }
+}

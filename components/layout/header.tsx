@@ -9,7 +9,7 @@ import {
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full bg-background">
+    <header className="relative z-50 w-full bg-background">
       {/* Top Utility Bar */}
       <div className="bg-primary text-white py-2 px-4 md:px-10 text-[11px] tracking-[0.05em] uppercase flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-2 md:gap-0">
         <div>
@@ -21,18 +21,19 @@ export function Header() {
       </div>
 
       {/* Main Navigation */}
-      <div className="py-3 md:py-4 px-4 md:px-10 flex items-center justify-between border-b border-border">
-        <Link href="/" className="font-serif text-[20px] font-bold text-primary no-underline tracking-[-0.5px]">
-          WOLPER LAW FIRM <span className="font-light opacity-60">PLLC</span>
+      <div className="h-20 md:h-24 px-4 md:px-10 flex items-center justify-between border-b border-slate-100 shadow-[0_4px_24px_-12px_rgba(27,43,58,0.08)] bg-white/95 backdrop-blur-md">
+        <Link href="/" className="font-serif text-[22px] md:text-[26px] font-bold text-primary no-underline tracking-tight flex items-baseline gap-2 group">
+          WOLPER LAW FIRM 
+          <span className="font-sans text-[11px] md:text-[12px] font-semibold tracking-[2px] opacity-60 group-hover:text-accent transition-colors border-l border-slate-300 pl-2">PLLC</span>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-[30px]">
-          <Link href="/" className="text-foreground text-[13px] font-medium no-underline hover:text-accent transition-colors">Home</Link>
-          <Link href="/practice-areas" className="text-foreground text-[13px] font-medium no-underline hover:text-accent transition-colors">Practice Areas</Link>
-          <Link href="/about" className="text-foreground text-[13px] font-medium no-underline hover:text-accent transition-colors">About</Link>
-          <Link href="/contact" className="text-foreground text-[13px] font-medium no-underline hover:text-accent transition-colors">Contact</Link>
-          <Button render={<Link href="/contact" />} className="bg-[#C5A059] hover:bg-[#B38F48] text-white py-3 px-6 h-auto no-underline text-[13px] font-semibold rounded-[2px] uppercase tracking-[1px]">
+        <nav className="hidden lg:flex items-center gap-[40px]">
+          <Link href="/" className="text-primary text-[14px] font-semibold tracking-[0.5px] no-underline hover:text-accent transition-colors relative py-2 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-accent after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left after:duration-300">Home</Link>
+          <Link href="/practice-areas" className="text-primary text-[14px] font-semibold tracking-[0.5px] no-underline hover:text-accent transition-colors relative py-2 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-accent after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left after:duration-300">Practice Areas</Link>
+          <Link href="/about" className="text-primary text-[14px] font-semibold tracking-[0.5px] no-underline hover:text-accent transition-colors relative py-2 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-accent after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left after:duration-300">About</Link>
+          <Link href="/contact" className="text-primary text-[14px] font-semibold tracking-[0.5px] no-underline hover:text-accent transition-colors relative py-2 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-accent after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left after:duration-300">Contact</Link>
+          <Button render={<Link href="/contact" />} className="bg-[#C5A059] hover:bg-[#B38F48] text-white py-3.5 px-8 h-auto no-underline text-[13px] font-bold rounded-[2px] uppercase tracking-[1.5px] ml-4 transition-all duration-300 shadow-[0_8px_16px_-6px_rgba(197,160,89,0.3)] hover:shadow-[0_12px_20px_-8px_rgba(197,160,89,0.5)] hover:-translate-y-0.5 border-none">
             Schedule a Consultation
           </Button>
         </nav>

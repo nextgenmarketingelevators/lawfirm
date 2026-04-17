@@ -8,7 +8,7 @@ export default function BusinessLawPage() {
     <div className="flex flex-col w-full">
       {/* 1. Hero */}
       <section className="bg-slate-900 text-white py-20 md:py-28 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://picsum.photos/seed/business-meeting/1920/1080?blur=2')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-[url('/images/desk-detail-image.png')] bg-cover bg-center opacity-40 mix-blend-overlay"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-3 gap-12 items-center">
             <div className="lg:col-span-2">

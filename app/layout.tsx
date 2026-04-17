@@ -7,8 +7,8 @@ import { Footer } from "@/components/layout/footer";
 import { StickyBottomBar } from "@/components/layout/sticky-bottom-bar";
 import { GSAPInitializer } from "@/components/layout/gsap-initializer";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
-const playfair = Playfair_Display({subsets:['latin'],variable:'--font-serif'});
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
+const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-serif', display: 'swap' });
 
 export const metadata: Metadata = {
   title: 'Wolper Law Firm PLLC | Real Estate & Business Attorney New York',
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
-    <html lang="en" className={cn("font-sans", inter.variable, playfair.variable)} suppressHydrationWarning>
+    <html lang="en" data-scroll-behavior="smooth" className={cn("font-sans", inter.variable, playfair.variable)} suppressHydrationWarning>
       <body className="min-h-screen bg-slate-50 text-slate-800 antialiased flex flex-col pb-16 md:pb-0">
         <GSAPInitializer />
         <Header />

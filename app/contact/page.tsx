@@ -1,16 +1,95 @@
+'use client';
+
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, AlertCircle } from "lucide-react";
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    practiceArea: "",
+    message: ""
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+    if (!formData.name.trim()) newErrors.name = "Full name is required";
+    if (!formData.phone.trim()) newErrors.phone = "Phone number is required";
+    if (!formData.email.trim()) {
+      newErrors.email = "Email address is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+    if (!formData.practiceArea) newErrors.practiceArea = "Please select an area of interest";
+    if (!formData.message.trim()) newErrors.message = "Please provide a brief message";
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (validate()) {
+      setIsSubmitting(true);
+      setSubmitError("");
+      
+      try {
+        const response = await fetch("https://relayez.com/api/receive/c6afc702-354e-410b-8071-c4dbc028dc99/3aa9fd7f-6adb-414e-b23b-e8563cad59af", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            // Passing the secret key in headers
+            "Authorization": "Bearer kgcr1mhvtkusbm61zovs",
+          },
+          body: JSON.stringify({
+            ...formData,
+            // Also including the secret in the payload to ensure compatibility
+            secret: "kgcr1mhvtkusbm61zovs",
+            source: "Wolper Law Firm Website Contact Form"
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to submit to webhook");
+        }
+
+        setIsSubmitted(true);
+        setFormData({ name: "", phone: "", email: "", practiceArea: "", message: "" });
+        setErrors({});
+      } catch (error) {
+        console.error("Form submission error:", error);
+        setSubmitError("We encountered an issue sending your message. Please try again or contact us directly via phone.");
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    // Clear error for this field when user types
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: "" }));
+    }
+  };
+
   return (
     <div className="flex flex-col w-full">
       {/* 1. Hero */}
-      <section className="bg-slate-900 text-white py-20 md:py-28">
-        <div className="container mx-auto px-4 max-w-4xl text-center">
+      <section className="bg-slate-900 text-white py-20 md:py-28 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/images/office-exterior-primary.png')] bg-cover bg-center opacity-40 mix-blend-overlay"></div>
+        <div className="container mx-auto px-4 max-w-4xl text-center relative z-10">
           <h1 className="font-serif text-4xl md:text-5xl font-bold mb-6">Contact Wolper Law Firm</h1>
           <p className="text-lg md:text-xl text-slate-300">
             Speak with an Experienced Attorney in New York. Have questions about a real estate transaction, business matter, or property tax assessment in Westchester County? We&apos;re here to help.
@@ -74,55 +153,114 @@ export default function ContactPage() {
               <h2 className="font-serif text-2xl font-bold text-slate-900 mb-6">Request a Consultation</h2>
               <p className="text-slate-600 mb-8 text-sm">Fill out the form below and we will contact you shortly to discuss your matter.</p>
               
-              <form className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Full Name</Label>
-                  <Input id="name" name="name" placeholder="John Doe" className="rounded-none border-slate-300 focus-visible:ring-slate-900" />
-                </div>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Phone Number</Label>
-                    <Input id="phone" name="phone" type="tel" placeholder="(555) 123-4567" className="rounded-none border-slate-300 focus-visible:ring-slate-900" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email Address</Label>
-                    <Input id="email" name="email" type="email" placeholder="john@example.com" className="rounded-none border-slate-300 focus-visible:ring-slate-900" />
-                  </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="practice-area">Area of Interest</Label>
-                  <select 
-                    id="practice-area" 
-                    name="practice-area"
-                    aria-label="Area of Interest"
-                    className="flex h-10 w-full border border-slate-300 bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-none"
+              {isSubmitted ? (
+                <div className="bg-green-50 border border-green-200 p-6 text-center">
+                  <h3 className="text-green-800 font-bold mb-2">Thank you for reaching out</h3>
+                  <p className="text-green-700 text-sm">Your message has been successfully sent. We will review your inquiry and get back to you promptly.</p>
+                  <Button 
+                    variant="outline" 
+                    className="mt-6 border-green-600 text-green-700 hover:bg-green-100"
+                    onClick={() => setIsSubmitted(false)}
                   >
-                    <option value="">Select a practice area...</option>
-                    <option value="business">Business Law & Counseling</option>
-                    <option value="real-estate">Real Estate Law</option>
-                    <option value="community">Community Associations</option>
-                    <option value="tax">Property Tax Reduction</option>
-                    <option value="other">Other / Not Sure</option>
-                  </select>
+                    Send Another Message
+                  </Button>
                 </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="message">Brief Message</Label>
-                  <Textarea 
-                    id="message" 
-                    name="message"
-                    placeholder="Please briefly describe your legal needs..." 
-                    className="min-h-[120px] rounded-none border-slate-300 focus-visible:ring-slate-900"
-                  />
-                  <p className="text-xs text-slate-500 mt-2">Please do not include sensitive or confidential information in this form.</p>
-                </div>
-                
-                <Button type="button" className="w-full bg-[#C5A059] hover:bg-[#B38F48] text-white rounded-[2px] h-12 text-base font-semibold uppercase tracking-[1px]">
-                  Request Consultation
-                </Button>
-              </form>
+              ) : (
+                <form className="space-y-6" onSubmit={handleSubmit}>
+                  <div className="space-y-2">
+                    <Label htmlFor="name" className={errors.name ? "text-red-500" : ""}>Full Name</Label>
+                    <Input 
+                      id="name" 
+                      name="name" 
+                      placeholder="John Doe" 
+                      value={formData.name}
+                      onChange={handleChange}
+                      className={`rounded-none focus-visible:ring-slate-900 transition-colors ${errors.name ? 'border-red-500 bg-red-50/10 focus-visible:ring-red-500' : 'border-slate-300'}`} 
+                    />
+                    {errors.name && <p className="text-red-500 text-xs flex items-center mt-1"><AlertCircle className="w-3 h-3 mr-1" />{errors.name}</p>}
+                  </div>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="phone" className={errors.phone ? "text-red-500" : ""}>Phone Number</Label>
+                      <Input 
+                        id="phone" 
+                        name="phone" 
+                        type="tel" 
+                        placeholder="(555) 123-4567" 
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className={`rounded-none focus-visible:ring-slate-900 transition-colors ${errors.phone ? 'border-red-500 bg-red-50/10 focus-visible:ring-red-500' : 'border-slate-300'}`} 
+                      />
+                      {errors.phone && <p className="text-red-500 text-xs flex items-center mt-1"><AlertCircle className="w-3 h-3 mr-1" />{errors.phone}</p>}
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email" className={errors.email ? "text-red-500" : ""}>Email Address</Label>
+                      <Input 
+                        id="email" 
+                        name="email" 
+                        type="email" 
+                        placeholder="john@example.com" 
+                        value={formData.email}
+                        onChange={handleChange}
+                        className={`rounded-none focus-visible:ring-slate-900 transition-colors ${errors.email ? 'border-red-500 bg-red-50/10 focus-visible:ring-red-500' : 'border-slate-300'}`} 
+                      />
+                      {errors.email && <p className="text-red-500 text-xs flex items-center mt-1"><AlertCircle className="w-3 h-3 mr-1" />{errors.email}</p>}
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="practiceArea" className={errors.practiceArea ? "text-red-500" : ""}>Area of Interest</Label>
+                    <select 
+                      id="practiceArea" 
+                      name="practiceArea"
+                      value={formData.practiceArea}
+                      onChange={handleChange}
+                      aria-label="Area of Interest"
+                      className={`flex h-10 w-full border bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-none transition-colors ${errors.practiceArea ? 'border-red-500 focus-visible:ring-red-500 bg-red-50/10 text-red-900' : 'border-slate-300 focus-visible:ring-slate-900'}`}
+                    >
+                      <option value="">Select a practice area...</option>
+                      <option value="business">Business Law & Counseling</option>
+                      <option value="real-estate">Real Estate Law</option>
+                      <option value="community">Community Associations</option>
+                      <option value="tax">Property Tax Reduction</option>
+                      <option value="other">Other / Not Sure</option>
+                    </select>
+                    {errors.practiceArea && <p className="text-red-500 text-xs flex items-center mt-1"><AlertCircle className="w-3 h-3 mr-1" />{errors.practiceArea}</p>}
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="message" className={errors.message ? "text-red-500" : ""}>Brief Message</Label>
+                    <Textarea 
+                      id="message" 
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Please briefly describe your legal needs..." 
+                      className={`min-h-[120px] rounded-none focus-visible:ring-slate-900 transition-colors ${errors.message ? 'border-red-500 bg-red-50/10 focus-visible:ring-red-500' : 'border-slate-300'}`}
+                    />
+                    {errors.message ? (
+                      <p className="text-red-500 text-xs flex items-center mt-1"><AlertCircle className="w-3 h-3 mr-1" />{errors.message}</p>
+                    ) : (
+                      <p className="text-xs text-slate-500 mt-2">Please do not include sensitive or confidential information in this form.</p>
+                    )}
+                  </div>
+                  
+                  {submitError && (
+                    <div className="bg-red-50 border border-red-200 text-red-700 p-4 text-sm font-medium">
+                      {submitError}
+                    </div>
+                  )}
+                  
+                  <Button 
+                    type="submit" 
+                    disabled={isSubmitting}
+                    className="w-full bg-[#C5A059] hover:bg-[#B38F48] disabled:opacity-70 text-white rounded-[2px] h-12 text-base font-semibold uppercase tracking-[1px] transition-all duration-300 hover:scale-[1.02]"
+                  >
+                    {isSubmitting ? "Sending..." : "Request Consultation"}
+                  </Button>
+                </form>
+              )}
             </div>
             
           </div>
